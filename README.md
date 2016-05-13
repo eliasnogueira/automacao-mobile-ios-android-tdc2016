@@ -1,4 +1,3 @@
-# automacao-mobile-ios-android-tdc2016
 Exemplo de Automação de Teste para iOs e Android usando Appium - TDC 2016 Florianopolis
 
 ### Pre Condições
@@ -7,5 +6,7 @@ Exemplo de Automação de Teste para iOs e Android usando Appium - TDC 2016 Flor
  
 ### Aplicações Utilizadas
 A aplicação Fastip está disponível nos seguinte repositório do github
+
 [Fastip iOS](https://github.com/ptraeg/mobile-apps-4-ways/tree/master/fastip-native-ios)
+
 [Fastip Android](https://github.com/ptraeg/mobile-apps-4-ways/tree/master/fastip-native-android)
