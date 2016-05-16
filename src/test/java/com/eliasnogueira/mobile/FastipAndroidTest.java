@@ -11,7 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 
@@ -25,27 +25,28 @@ public class FastipAndroidTest {
 		
 		// capacidades para execucao
 		DesiredCapabilities dc = new DesiredCapabilities();
-		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.IOS);
-		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 5s");
+		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
+		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
 		dc.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
-		dc.setCapability(MobileCapabilityType.VERSION, "9.3");
 		
 		// abrir conexao com dispostivo (sessao)
-		IOSDriver<MobileElement> driver = 
-				new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),dc);
+		AndroidDriver<MobileElement> driver = 
+				new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),dc);
 		
 		// interacao com componentes
-		driver.findElement(By.className("UIATextField")).sendKeys("100");
-		driver.findElementByAccessibilityId("Calculate Tip").click();
+		driver.findElement(By.id("org.traeg.fastip:id/billAmtEditText")).sendKeys("100");
+		driver.findElement(By.id("org.traeg.fastip:id/calcTipButton")).click();
 		
 		// obtendo os textos da tela
-		String valor = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIAStaticText[2]")).getText();
-		String total = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIAStaticText[4]")).getText();
+		String percentual = driver.findElement(By.id("org.traeg.fastip:id/tipPctTextView")).getText();
+		String valor = driver.findElement(By.id("org.traeg.fastip:id/tipAmtTextView")).getText();
+		String total = driver.findElement(By.id("org.traeg.fastip:id/totalAmtTextView")).getText();
 		
 		// validacao (resultado esperado)
+		assertEquals("15.0%", percentual);
 		assertEquals("$15.00", valor);
 		assertEquals("$115.00", total);
-		
+				
 		// fechar a app
 		driver.quit();
 	}
